@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>TikTok Auth Callback</title></head>
+<body style="font-family:monospace;padding:40px;background:#1a1a2e;color:#00e5a0;">
+<h1>TikTok Authorization</h1>
+<div id="result"></div>
+<script>
+const params = new URLSearchParams(window.location.search);
+const code = params.get('code');
+const error = params.get('error');
+const el = document.getElementById('result');
+if (error) {
+  el.innerHTML = '<h2 style="color:red;">Error: ' + error + '</h2><p>' + (params.get('error_description') || '') + '</p>';
+} else if (code) {
+  el.innerHTML = '<h2>Success! Copy this code:</h2><textarea id="codebox" rows="6" cols="80" style="font-size:14px;background:#0f0f23;color:#00e5a0;border:1px solid #00e5a0;padding:10px;">' + code + '</textarea><br><br><button onclick="navigator.clipboard.writeText(document.getElementById(\'codebox\').value);this.textContent=\'Copied!\';" style="padding:10px 20px;font-size:16px;cursor:pointer;">Copy to Clipboard</button><p>Paste this code into your terminal.</p>';
+} else {
+  el.innerHTML = '<h2 style="color:yellow;">No code received.</h2>';
+}
+</script>
+</body>
+</html>
